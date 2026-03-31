@@ -1,8 +1,10 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Hero : MonoBehaviour
 {
     public AudioSource step;
+    public CinemachineImpulseSource impulseSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,5 +20,6 @@ public class Hero : MonoBehaviour
     public void Step()
     {
         step.Play();
+        impulseSource.GenerateImpulse();
     }
 }
