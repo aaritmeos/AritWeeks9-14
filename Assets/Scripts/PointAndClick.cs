@@ -25,7 +25,7 @@ public class PointAndClick : MonoBehaviour
     public void OnClick(InputAction.CallbackContext context)
     {
         //the same as Mouse.current.position.ReadValue();
-        transform.position = new Vector2 newPos();
-        newPos = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
+        //transform.position = new Vector2 newPos();
+        //newPos = Camera.main.ScreenToWorldPoint(context.ReadValue<Vector2>());
     }
 }
