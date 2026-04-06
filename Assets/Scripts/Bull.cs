@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Bull : MonoBehaviour
 {
     public float speed;
+    public float chargeMult;
     public Vector2 movement;
     public Vector2 latMove;
 
@@ -26,5 +27,18 @@ public class Bull : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         movement = context.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if(context.started == true)
+        {
+            speed = speed * chargeMult;
+        }
+        if(context.canceled == true)
+        {
+            speed = speed / chargeMult;
+        }
+            
     }
 }
