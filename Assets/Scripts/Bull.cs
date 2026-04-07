@@ -77,14 +77,14 @@ public class Bull : MonoBehaviour
     //get player input to accelerate/charge
     public void OnJump(InputAction.CallbackContext context)
     {
-        //multiply speed when space is pressed
+        //multiply speed when space is pressed and set bool charge to true
         if(context.started == true)
         {
             charge = true;
             speed = speed * chargeMult;
         }
-        //return speed to normal
-        if(context.canceled == true)
+        //return speed to normal and set bool charge to false
+        if (context.canceled == true)
         {
             charge = false;
             speed = speed / chargeMult;

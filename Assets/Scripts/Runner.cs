@@ -24,8 +24,10 @@ public class Runner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //move forward constantly
         transform.position += transform.right * Time.deltaTime * speed;
 
+        //detect collisions with the bull
         if (Vector3.Distance(transform.position, bull.position) <= 4f)
         {
             Debug.Log("Hit");
@@ -41,6 +43,7 @@ public class Runner : MonoBehaviour
         runnerSelector.sprite = runners[runnerNumber];
     }
 
+    //coroutiine to rotate the runners whne they are hit by the bull
     IEnumerator Rotate()
     {
         //varible for timer
@@ -50,7 +53,7 @@ public class Runner : MonoBehaviour
         {
             //start timer
             t += Time.deltaTime;
-            //use the value of t to alter the scale of the game object
+            //formula to alter eulerAngles form codeby adding 5 to them while the coroutine is active
             Vector3 rotate = transform.eulerAngles;
             rotate.z += 5;
             transform.eulerAngles = rotate;

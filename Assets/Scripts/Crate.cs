@@ -28,10 +28,11 @@ public class Crate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //check for collisions with the bull
         if (Vector3.Distance(transform.position, bull.position) <= 4f)
         {
             Debug.Log("Hit");
-            //use corroutine to reduce the size of the object only once
+            
             StartCoroutine(MakeSmall());
         }
     }
@@ -44,6 +45,7 @@ public class Crate : MonoBehaviour
         boxSelector.sprite = boxes[boxNumber];
     }
 
+    //corroutine to reduce the size of the object only once
     IEnumerator MakeSmall ()
     {
         //varible for timer
