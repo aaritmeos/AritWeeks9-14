@@ -10,6 +10,8 @@ public class Crate : MonoBehaviour
     public List<Sprite> boxes;
     //number that indicates which sprite the boxSelector will display
     public int boxNumber;
+    //to get location of Bull game object
+    public Transform bull;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,7 +22,10 @@ public class Crate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (boxSelector.bounds.Contains(bull.position) == true)
+        {
+            Debug.Log("Hit");
+        }
     }
 
     public void PickABox()

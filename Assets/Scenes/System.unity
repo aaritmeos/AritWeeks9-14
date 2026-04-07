@@ -816,6 +816,7 @@ MonoBehaviour:
   - {fileID: -3189140171343995306, guid: 2df033f0b6e0dde4d8a651fe611c6c92, type: 3}
   - {fileID: 2895839345677915364, guid: a466f6d70a3193b46b8c53afc7909de8, type: 3}
   boxNumber: 0
+  bull: {fileID: 473606912}
 --- !u!1 &2130198544
 GameObject:
   m_ObjectHideFlags: 0
