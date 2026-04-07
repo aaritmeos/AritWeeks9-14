@@ -1,5 +1,7 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Crate : MonoBehaviour
@@ -12,6 +14,10 @@ public class Crate : MonoBehaviour
     public int boxNumber;
     //to get location of Bull game object
     public Transform bull;
+    //curve to change size of object
+    public AnimationCurve shrinker;
+    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,6 +31,8 @@ public class Crate : MonoBehaviour
         if (boxSelector.bounds.Contains(bull.position) == true)
         {
             Debug.Log("Hit");
+            //use corroutine to reduce the size of the object only once
+            StartCoroutine(MakeSmall());
         }
     }
 
@@ -34,5 +42,22 @@ public class Crate : MonoBehaviour
         boxNumber = Random.Range(0, boxes.Count);
         //tell the boxSelector to display the sprite indicated by the line of code above
         boxSelector.sprite = boxes[boxNumber];
+    }
+
+    IEnumerator MakeSmall ()
+    {
+        //varible for timer
+        float t = 0;
+        
+        while (t < 1)
+        {
+            //start timer
+            t += Time.deltaTime;
+            //use the value of t to alter the scale of the game object
+            transform.localScale = Vector2.one * shrinker.Evaluate(t);
+            yield return null;
+        }
+
+        
     }
 }
