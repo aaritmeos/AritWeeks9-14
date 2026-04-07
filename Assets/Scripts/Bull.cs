@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +14,10 @@ public class Bull : MonoBehaviour
     public Vector2 movement;
     //vector to alter transform in Update
     public Vector2 latMove;
+    //to determine bounds of Bull
+    public SpriteRenderer bullShape;
+    //to locate game objects for collisions
+    public List<Transform> crates;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,6 +36,14 @@ public class Bull : MonoBehaviour
         latMove.y += speed * -1 * Time.deltaTime;
         //return new values to transform
         transform.position = latMove;
+
+        for (int i = 0; i < crates.Count; i++)
+        {
+            if (Vector3.Distance(transform.position, crates[i].transform.position) <= 4f)
+            {
+                Debug.Log("Crash");
+            }
+        }
     }
 
     //get player input to alter movement
