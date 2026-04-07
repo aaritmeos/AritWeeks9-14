@@ -1,63 +1,62 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
-public class Crate : MonoBehaviour
+public class Runner : MonoBehaviour
 {
     //contains displayed sprite
-    public SpriteRenderer boxSelector;
+    public SpriteRenderer runnerSelector;
     //list that contains all sprites from where the boxSelector can choose
-    public List<Sprite> boxes;
+    public List<Sprite> runners;
     //number that indicates which sprite the boxSelector will display
-    public int boxNumber;
+    public int runnerNumber;
     //to get location of Bull game object
     public Transform bull;
-    //curve to change size of object
-    public AnimationCurve shrinker;
-    
-
+    //variable to control speed
+    public float speed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PickABox();
+        PickARunner();
     }
 
     // Update is called once per frame
     void Update()
     {
+        transform.position += transform.right * Time.deltaTime * speed;
+
         if (Vector3.Distance(transform.position, bull.position) <= 4f)
         {
             Debug.Log("Hit");
-            //use corroutine to reduce the size of the object only once
-            StartCoroutine(MakeSmall());
+            StartCoroutine(Rotate());
         }
     }
 
-    public void PickABox()
+    public void PickARunner()
     {
         //define boxNumber as a number between 0 and the amount of sprites in the boxes list
-        boxNumber = Random.Range(0, boxes.Count);
+        runnerNumber = Random.Range(0, runners.Count);
         //tell the boxSelector to display the sprite indicated by the line of code above
-        boxSelector.sprite = boxes[boxNumber];
+        runnerSelector.sprite = runners[runnerNumber];
     }
 
-    IEnumerator MakeSmall ()
+    IEnumerator Rotate()
     {
         //varible for timer
         float t = 0;
-        
+
         while (t < 1)
         {
             //start timer
             t += Time.deltaTime;
             //use the value of t to alter the scale of the game object
-            transform.localScale = Vector2.one * shrinker.Evaluate(t);
+            Vector3 rotate = transform.eulerAngles;
+            rotate.z += 5;
+            transform.eulerAngles = rotate;
             yield return null;
         }
 
-        
+
     }
 }
