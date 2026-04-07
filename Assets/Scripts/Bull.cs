@@ -18,6 +18,10 @@ public class Bull : MonoBehaviour
     public SpriteRenderer bullShape;
     //to locate game objects for collisions
     public List<Transform> crates;
+    //bool to check if player is charging
+    public bool charge;
+    //variable to start timer for speed restoration
+    public float t = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,10 +41,28 @@ public class Bull : MonoBehaviour
         //return new values to transform
         transform.position = latMove;
 
+        //for loop to count up towards the elements in the crates list
         for (int i = 0; i < crates.Count; i++)
         {
-            if (Vector3.Distance(transform.position, crates[i].transform.position) <= 4f)
+            //if statement for bull reaction when colliding while charging
+            if (Vector3.Distance(transform.position, crates[i].transform.position) <= 4f && charge == true)
             {
+                Debug.Log("Crash");
+            }
+
+            //if statement for bull reaction when colliding while not charging
+            if (Vector3.Distance(transform.position, crates[i].transform.position) <= 4f && charge == false)
+            {
+                //speed is halved
+                speed = speed / 2;
+                //timer starts
+                t ++;
+                //when timer gets to 5, it resets and restores speed to default
+                if (t > 5)
+                {
+                    t = 0;
+                    speed = speed = 5;
+                }
                 Debug.Log("Crash");
             }
         }
@@ -58,11 +80,13 @@ public class Bull : MonoBehaviour
         //multiply speed when space is pressed
         if(context.started == true)
         {
+            charge = true;
             speed = speed * chargeMult;
         }
         //return speed to normal
         if(context.canceled == true)
         {
+            charge = false;
             speed = speed / chargeMult;
         }
             
